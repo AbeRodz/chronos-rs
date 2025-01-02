@@ -8,6 +8,16 @@ This is a simple stopwatch application designed for personal use during my teach
 - Lightweight and easy to use.
 
 ## Purpose
-The primary goal of this app is to provide a simple, unobtrusive timer that helps in managing class durations and keeping track of teaching sessions without the need for 3rd party apps/websites (just an excuse to code in Rust).
+The primary goal of this app is to provide a simple, unobtrusive timer that helps in managing class durations and keeping track of teaching sessions without the need for 3rd party apps/websites **(just an excuse to code in Rust)**.
 
 
+Just run the app by executing the following:
+```bash
+cargo run   
+```
+
+You'll be presented with a simple and straightforward GUI:
+
+![alt text](./assets/gui.png)
+
+The app is configured for my specific case which is having my local time and Argentina's time but this can be changed on main.rs.
