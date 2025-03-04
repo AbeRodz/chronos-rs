@@ -19,7 +19,7 @@ jobs:
             archive_name: chronos-rs.tar.gz
           - os: macos-latest
             artifact_name: chronos-rs
-            archive_name: chronos-rs.tar.gz
+            archive_name: chronos-rs.zip
 
     steps:
       - name: Checkout Repository
@@ -33,9 +33,14 @@ jobs:
 
       - name: Package Binary
         run: |
+
           mkdir -p dist
           cp target/release/${{ matrix.artifact_name }} dist/
-          tar -czvf ${{ matrix.archive_name }} -C dist ${{ matrix.artifact_name }}
+          if [[ "${{ matrix.os }}" == "macos-latest" ]]; then
+            zip -r ${{ matrix.artifact_name }}.zip dist/${{ matrix.artifact_name }}
+          else
+            tar -czvf ${{ matrix.archive_name }} -C dist ${{ matrix.artifact_name }}
+          fi
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
