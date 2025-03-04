@@ -14,7 +14,7 @@ jobs:
       matrix:
         os: [ubuntu-22.04, macos-latest]
         include:
-          - os: ubuntu-latest
+          - os: ubuntu-22.04
             artifact_name: chronos-rs
             archive_name: chronos-rs-linux.tar.gz
           - os: macos-latest
