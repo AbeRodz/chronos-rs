@@ -15,11 +15,11 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         include:
           - os: ubuntu-latest
-            artifact_name: timer-app-linux
-            archive_name: timer-app-linux.tar.gz
+            artifact_name: chronos-rs
+            archive_name: chronos-rs.tar.gz
           - os: macos-latest
-            artifact_name: timer-app-macos
-            archive_name: timer-app-macos.tar.gz
+            artifact_name: chronos-rs
+            archive_name: chronos-rs.tar.gz
 
     steps:
       - name: Checkout Repository
