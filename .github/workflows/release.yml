@@ -33,9 +33,9 @@ jobs:
 
       - name: Package Binary
         run: |
-
-        mkdir -p dist
+          mkdir -p dist
           cp target/release/${{ matrix.artifact_name }} dist/
+
           if [[ "${{ matrix.os }}" == "macos-latest" ]]; then
             zip -j dist/${{ matrix.archive_name }} dist/${{ matrix.artifact_name }}
           else
