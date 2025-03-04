@@ -16,10 +16,10 @@ jobs:
         include:
           - os: ubuntu-latest
             artifact_name: chronos-rs
-            archive_name: chronos-rs.tar.gz
+            archive_name: chronos-rs-linux.tar.gz
           - os: macos-latest
             artifact_name: chronos-rs
-            archive_name: chronos-rs.zip
+            archive_name: chronos-rs-macos.zip
 
     steps:
       - name: Checkout Repository
@@ -34,19 +34,19 @@ jobs:
       - name: Package Binary
         run: |
 
-          mkdir -p dist
+        mkdir -p dist
           cp target/release/${{ matrix.artifact_name }} dist/
           if [[ "${{ matrix.os }}" == "macos-latest" ]]; then
-            zip -r ${{ matrix.artifact_name }}.zip dist/${{ matrix.artifact_name }}
+            zip -j dist/${{ matrix.archive_name }} dist/${{ matrix.artifact_name }}
           else
-            tar -czvf ${{ matrix.archive_name }} -C dist ${{ matrix.artifact_name }}
+            tar -czvf dist/${{ matrix.archive_name }} -C dist ${{ matrix.artifact_name }}
           fi
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.artifact_name }}
-          path: ${{ matrix.archive_name }}
+          name: ${{ matrix.archive_name }}
+          path: dist/${{ matrix.archive_name }}
 
   release:
     name: Create GitHub Release
@@ -60,11 +60,12 @@ jobs:
       - name: Download Built Artifacts
         uses: actions/download-artifact@v4
         with:
+          merge-multiple: true
           path: dist
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/**/*
+          files: dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
